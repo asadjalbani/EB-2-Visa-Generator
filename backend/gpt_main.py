@@ -1,12 +1,14 @@
-import openai
+from openai import OpenAI
 from gpt_config import config_gpt
-
+from dotenv import load_dotenv
+import os
 
 class ChatGpt(config_gpt):
     
     def __init__(self) -> None:
         super().__init__()
-    
+        load_dotenv()
+        self.client = OpenAI(api_key=os.environ.get('OPENAI_API_KEY'))
     def generate_petition(self, _input):
 
         prompt = f"""
@@ -146,11 +148,17 @@ Conclude by summarizing why, on balance, it would be beneficial to the United St
         """
         messages = [{"role": "system", "content":self.system},
                     {"role": "user", "content":prompt}]
-        openai.api_key = "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"
+        # #openai.api_key = "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"
+        # self.client.api_key = "sk-proj-2ELBlWZMZvZN9EqC1MDmT3BlbkFJG5dij009c9EgyAptYbiE"
+        # response = self.client.ChatCompletion.create(model="gpt-4o", messages=messages,
+        #                                             temperature=0.1)
+        completion = self.client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": self.system},
+            {"role": "user", "content": prompt}
+        ]
+        )
+        response = completion.choices[0].message
         
-        response = openai.ChatCompletion.create(model="gpt-3.5-turbo-16k", messages=messages,
-                                                    temperature=0.1)
-        
-        reply = response.choices[0].message.content
-        
-        return reply
+        return response
