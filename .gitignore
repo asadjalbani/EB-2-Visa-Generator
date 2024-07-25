@@ -1,3 +1,17 @@
-*.env
+# Ignore .env files
+.env
 
-*__pycache__/
+# Ignore virtual environment folders
+__env__/
+venv/
+env/
+
+# Ignore Python cache folders
+__pycache__/
+
+# Ignore backend and frontend folders (if they're at the root level)
+/backend/
+/frontend/
+
+# Ignore all .docx files
+*.docx
