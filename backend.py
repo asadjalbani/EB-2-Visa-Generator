@@ -2,12 +2,14 @@
 import openai
 import os
 import requests
+import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
 
 def holding_advance_degree(user_prompt):
-    api_key = os.getenv("OPENAI_API_KEY")
+    # api_key = os.getenv("OPENAI_API_KEY")
+    api_key = st.secrets["OPENAI_API_KEY"]
     system_prompt = """
 
     Context/Background
