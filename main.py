@@ -5,7 +5,7 @@ from docx import Document
 import base64
 
 st.header("Welcome to SAINCUBE EB-2 NIW")
-
+ 
 def create_word_doc(text, file_name="generated_document.docx"):
     doc = Document()
     doc.add_paragraph(text)
